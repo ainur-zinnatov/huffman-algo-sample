@@ -8,9 +8,9 @@ package ru.kpfu.itis.group11403.AinurAndSafin.projectZip;
 
 public final class InternalNode extends Node {
 
-    public final Node leftChild;  // левое дитя
+    private final Node leftChild;  // левое дитя
 
-    public final Node rightChild;  // правое дитя
+    private final Node rightChild;  // правое дитя
 
 
     public InternalNode(Node leftChild, Node rightChild) {
@@ -19,6 +19,17 @@ public final class InternalNode extends Node {
         }
         this.leftChild = leftChild;
         this.rightChild = rightChild;
+    }
+
+
+    public Node getLeftChild() {
+
+        return leftChild;
+    }
+
+    public Node getRightChild() {
+
+        return rightChild;
     }
 
 }

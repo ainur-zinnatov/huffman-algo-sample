@@ -3,9 +3,13 @@ package ru.kpfu.itis.group11403.AinurAndSafin.projectZip;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * Битовый поток
+ */
+
 public class BitOutputStream {
 
-    private OutputStream output;
+    private OutputStream output; // байтовый поток
 
     private int currentByte; // текущий байт
 
@@ -27,11 +31,14 @@ public class BitOutputStream {
 
     public void write(int b) throws IOException {
         if (!(b == 0 || b == 1)){
-            throw new IllegalArgumentException("Argument must be 0 or 1");
+            throw new IllegalArgumentException("argument must be 0 or 1");
         }
         currentByte = currentByte << 1 | b;
         numBitsInCurrentByte++;
+
+        //Если байт полный, то записываем его
         if (numBitsInCurrentByte == 8) {
+
             output.write(currentByte);
             numBitsInCurrentByte = 0;
         }

@@ -23,12 +23,6 @@ public class FrequencyTable {
         }
 
         frequencies = freqs.clone();
-
-        for (int x : frequencies) {
-            if (x < 0){
-                throw new IllegalArgumentException("отрицательное число встречаемостей символа");
-            }
-        }
     }
 
 
@@ -46,7 +40,7 @@ public class FrequencyTable {
         frequencies[symbol]++;
     }
 
-
+    // метод для просмотра таблицы код - символ
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < frequencies.length; i++)
@@ -59,24 +53,22 @@ public class FrequencyTable {
         //используем очередь с приоритетом
         Queue<NodeWithFrequency> pqueue = new PriorityQueue<>();
 
-        // добавляем листья для символов, которые встечались хоть раз
+        // добавляем узлы для символов, которые встечались хоть раз
         for (int i = 0; i < frequencies.length; i++) {
             if (frequencies[i] > 0){
                 pqueue.add(new NodeWithFrequency(new Leaf(i), i, frequencies[i]));
             }
         }
 
-        for (int i = 0; i < frequencies.length && pqueue.size() < 2; i++) {
-            if (i >= frequencies.length || frequencies[i] == 0)
-                pqueue.add(new NodeWithFrequency(new Leaf(i), i, 0));
-        }
-
         //сливаем в один узел два узла с наименьшими частотами
         //причем у нового узла символом будет являться наименьший из вдух символов  - lowestSymbol
         //и частота равна сумме двух частот
         while (pqueue.size() > 1) {
+
             NodeWithFrequency nf1 = pqueue.remove();
+
             NodeWithFrequency nf2 = pqueue.remove();
+
             pqueue.add(new NodeWithFrequency(
                     new InternalNode(nf1.node, nf2.node),
                     Math.min(nf1.lowestSymbol, nf2.lowestSymbol),
@@ -88,13 +80,13 @@ public class FrequencyTable {
     }
 
 
-    // Узел с частатой(или псевдоузел)
+    // Узел с частатой
     private static class NodeWithFrequency implements Comparable<NodeWithFrequency> {
 
         public final Node node;
 
         public final int lowestSymbol; // используется для того, чтобы, сравнивать
-        // по символам два псевдоузла
+        // по символам два узла
 
         public final long frequency; //частота символа в псевдоузле
 

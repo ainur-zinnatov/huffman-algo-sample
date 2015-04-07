@@ -41,16 +41,16 @@ public class HuffmanDecoder {
 
             //Если считали 0, идем к левому ребенку
             if (temp == 0) {
-                nextNode = currentNode.leftChild;
+                nextNode = currentNode.getLeftChild();
 
                 //Если 1 - к правому ребенку
             } else  {
-                nextNode = currentNode.rightChild;
+                nextNode = currentNode.getRightChild();
             }
 
             //если дошли до листа, то возвращаем его символ
             if (nextNode instanceof Leaf){
-                return ((Leaf)nextNode).symbol;
+                return ((Leaf)nextNode).getSymbol();
 
                 //Если не лист, а внутренний узел, то идем дальше вниз по дереву
             } else if (nextNode instanceof InternalNode){

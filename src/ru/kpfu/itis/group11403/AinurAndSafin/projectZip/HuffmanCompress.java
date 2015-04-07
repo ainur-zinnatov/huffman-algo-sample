@@ -7,8 +7,8 @@ public class HuffmanCompress{
 
     private CodeTree codeTree;
 
-    public CodeTree getCodeTree()
-    {
+    public CodeTree getCodeTree() {
+
         return codeTree;
     }
 
@@ -22,12 +22,14 @@ public class HuffmanCompress{
             BitOutputStream b_out = new BitOutputStream(out);
 
             FrequencyTable frequencyTable = getFrequencies(input);
+
             frequencyTable.increment(256); // end of file symbol
+
             codeTree = frequencyTable.buildCodeTree();
 
             compress(codeTree,in,b_out);
 
-            b_out.flush(); //дописываем
+            b_out.flush();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,11 +46,10 @@ public class HuffmanCompress{
 
             FrequencyTable freq = new FrequencyTable(new int[257]);
 
-            while (true){
-                int b = input.read();
-                if (b == -1){
-                    break;
-                }
+            int b = 0;
+
+            while ((b = input.read()) != -1){
+
                 freq.increment(b);//увеличиваем кол-во на 1
             }
             return freq;

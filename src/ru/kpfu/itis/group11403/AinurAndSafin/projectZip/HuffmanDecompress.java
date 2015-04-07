@@ -7,7 +7,7 @@ public class HuffmanDecompress {
     private CodeTree codeTree; // дерево для раскодировки
 
 
-    public  HuffmanDecompress(CodeTree codeTree) {
+    public HuffmanDecompress(CodeTree codeTree) {
 
         if (codeTree == null){
             throw new NullPointerException("null code tree");
@@ -16,7 +16,7 @@ public class HuffmanDecompress {
     }
 
 
-    public final void decompress(File input, File output) {
+    public void decompress(File input, File output) {
 
         try(InputStream in = new BufferedInputStream(new FileInputStream(input));
             OutputStream out = new BufferedOutputStream(new FileOutputStream(output)) ){
@@ -32,11 +32,11 @@ public class HuffmanDecompress {
 
 
     private  void decompress(CodeTree code, BitInputStream in, OutputStream out) throws IOException {
-        HuffmanDecoder dec = new HuffmanDecoder(in);
-        dec.setCodeTree(code);
+        HuffmanDecoder dec = new HuffmanDecoder(in); // Создаем декодер
+        dec.setCodeTree(code); //устанавливаем для него дерево, чтобы декодировать
         while (true) {
             int symbol = dec.read();
-            if (symbol == 256){  // EOF symbol
+            if (symbol == 256){  // End of file symbol
                 break;
             }
             out.write(symbol);

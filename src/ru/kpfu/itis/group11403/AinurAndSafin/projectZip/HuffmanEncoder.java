@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Класс, который кодирует символ и записывает его в файл
+ * Класс, который записывает символ в виде кода, который получился для символа в файл
  */
 public final class HuffmanEncoder {
 

@@ -35,6 +35,10 @@ public class CodeTree {
         return root;
     }
 
+    /**
+     * Метод, который по дереву создает список из кодов для каждого символа
+     *
+     */
     private void buildCodeList(Node node, List<Integer> prefix) {
 
         if (node instanceof InternalNode) {
@@ -43,25 +47,25 @@ public class CodeTree {
             //в итоге, когда дойдем до листа, в котором хранится символ для него добавляем в лист
             //символ и его код
             prefix.add(0);
-            buildCodeList(internalNode.leftChild , prefix);
+            buildCodeList(internalNode.getLeftChild() , prefix);
             prefix.remove(prefix.size() - 1);
 
             prefix.add(1);
-            buildCodeList(internalNode.rightChild, prefix);
+            buildCodeList(internalNode.getRightChild(), prefix);
             prefix.remove(prefix.size() - 1);
 
             //Если дошли до листа устанавливаем код символа
         } else if (node instanceof Leaf) {
             Leaf leaf = (Leaf)node;
-            if (leaf.symbol >= codes.size()){
+            if (leaf.getSymbol() >= codes.size()){
                 throw new IllegalArgumentException("Символ за пределами таблицы ASCII");
             }
 
-            if (codes.get(leaf.symbol) != null){
+            if (codes.get(leaf.getSymbol()) != null){
                 throw new IllegalArgumentException("Символ имеет более одного кода");
             }
             //устанавливаем код символа
-            codes.set(leaf.symbol, new ArrayList<>(prefix));
+            codes.set(leaf.getSymbol(), new ArrayList<>(prefix));
 
         }
     }
@@ -89,10 +93,10 @@ public class CodeTree {
     private static void toString(String prefix, Node node, StringBuilder sb) {
         if (node instanceof InternalNode) {
             InternalNode internalNode = (InternalNode)node;
-            toString(prefix + "0", internalNode.leftChild , sb);
-            toString(prefix + "1", internalNode.rightChild, sb);
+            toString(prefix + "0", internalNode.getLeftChild() , sb);
+            toString(prefix + "1", internalNode.getRightChild(), sb);
         } else if (node instanceof Leaf) {
-            sb.append(String.format("Code %s:"+"\t\t\t"+" Symbol %d%n", prefix, ((Leaf)node).symbol));
+            sb.append(String.format("Code %s:"+"\t\t\t"+" Symbol %d%n", prefix, ((Leaf)node).getSymbol()));
         }
     }
 

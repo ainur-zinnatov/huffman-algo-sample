@@ -8,7 +8,8 @@ public final class Leaf extends Node {
 
     private final int symbol;
     
-    public int getSymbol(){
+    public int getSymbol() {
+
         return symbol;
     }
 
