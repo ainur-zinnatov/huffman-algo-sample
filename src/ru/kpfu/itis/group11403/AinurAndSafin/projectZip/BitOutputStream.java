@@ -1,0 +1,48 @@
+package ru.kpfu.itis.group11403.AinurAndSafin.projectZip;
+
+import java.io.IOException;
+import java.io.OutputStream;
+
+public class BitOutputStream {
+
+    private OutputStream output;
+
+    private int currentByte; // текущий байт
+
+    private int numBitsInCurrentByte; // кол-во битов в текущем байте
+
+
+
+    public BitOutputStream(OutputStream out) {
+
+        if (out == null){
+            throw new NullPointerException("Argument is null");
+        }
+        output = out;
+        currentByte = 0;
+        numBitsInCurrentByte = 0;
+    }
+
+
+
+    public void write(int b) throws IOException {
+        if (!(b == 0 || b == 1)){
+            throw new IllegalArgumentException("Argument must be 0 or 1");
+        }
+        currentByte = currentByte << 1 | b;
+        numBitsInCurrentByte++;
+        if (numBitsInCurrentByte == 8) {
+            output.write(currentByte);
+            numBitsInCurrentByte = 0;
+        }
+    }
+
+    //дописываем 0 если кол-во битов в байте не равно 8
+    public void flush() throws IOException{
+
+        while (numBitsInCurrentByte != 0){
+            write(0);
+        }
+    }
+
+}
