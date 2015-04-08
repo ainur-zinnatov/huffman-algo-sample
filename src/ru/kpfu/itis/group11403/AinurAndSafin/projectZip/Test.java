@@ -22,7 +22,7 @@ public class Test {
 
         CodeTree codeTree = zipper.getCodeTree();
 
-        //можно посмотреть какие символы и коды присутсвуют
+//        можно посмотреть какие символы и коды присутсвуют
         System.out.println(codeTree.toString());
 
     }
