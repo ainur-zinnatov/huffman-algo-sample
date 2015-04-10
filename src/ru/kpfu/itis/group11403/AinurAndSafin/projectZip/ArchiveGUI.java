@@ -18,45 +18,54 @@ public class ArchiveGUI {
 
 
         final JLabel label_1 = new JLabel("Выберите файл");
-        label_1.setBounds(125, 5, 100, 30);
+        label_1.setBounds(40, 30, 200, 30);
         panel.add(label_1);
 
-
-        final JLabel form = new JLabel("Формат сжатого файла:");
-        form.setBounds(10, 45, 300, 30);
-        panel.add(form);
-
-        final JRadioButton radioHuf = new JRadioButton(".HUF");
-        radioHuf.setBounds(10, 80, 100, 30);
-        panel.add(radioHuf);
-
-        final JRadioButton radioItis = new JRadioButton(".ITIS");
-        radioItis.setBounds(10, 130, 100, 30);
-        radioItis.setSelected(true);
-        panel.add(radioItis);
-
-        final JButton InputButton = new JButton("Input File");
+        final JButton InputButton = new JButton("открыть ...");
         InputButton.setVerticalTextPosition(AbstractButton.CENTER);
         InputButton.setHorizontalTextPosition(AbstractButton.LEADING);
-        InputButton.setBounds(10, 10, 100, 30);
+        InputButton.setBounds(170, 20, 150, 50);
         panel.add(InputButton);
 
 
-        final JButton archive = new JButton("compress");
+        final JLabel form = new JLabel("Выбирете формат файла:");
+        form.setBounds(100, 110, 300, 30);
+        panel.add(form);
+
+
+        final JLabel fileName = new JLabel();
+        fileName.setBounds(15,90,300,20);
+        fileName.setHorizontalTextPosition(AbstractButton.LEFT);
+        panel.add(fileName);
+
+        final JRadioButton radioHuf = new JRadioButton(".HUF");
+        radioHuf.setBounds(90, 140, 100, 30);
+        panel.add(radioHuf);
+
+        final JRadioButton radioItis = new JRadioButton(".ITIS");
+        radioItis.setBounds(200, 140, 100, 30);
+        radioItis.setSelected(true);
+        panel.add(radioItis);
+
+        final JButton archive = new JButton("COMPRESS");
         archive.setVerticalTextPosition(AbstractButton.CENTER);
-        archive.setHorizontalTextPosition(AbstractButton.LEADING);
-        archive.setBounds(10, 170, 220, 30);
+        archive.setHorizontalTextPosition(AbstractButton.WHEN_FOCUSED);
+        archive.setBounds(70, 190, 220, 50); //check
         archive.setEnabled(false);
         panel.add(archive);
 
-        final JLabel progress = new JLabel("...");
-        progress.setBounds(10, 230, 200, 30);
+        final JLabel progress = new JLabel("Статус : ожидание комманды  ...");
+        progress.setBounds(75, 250, 200, 30);
         panel.add(progress);
 
-        JProgressBar progressBar = new JProgressBar();
-        progressBar.setIndeterminate(false);
-        progressBar.setBounds(10, 215, 220, 20);
-        panel.add(progressBar);
+        final JLabel about = new JLabel("Программа Zipper");
+        about.setBounds(110,320,200,30);
+        panel.add(about);
+
+        final JLabel rights = new JLabel("All rights reserved.");
+        rights.setBounds(110, 340, 200, 30);
+        panel.add(rights);
+
 
         final String[] archive_format = {".itis"}; //default
 
@@ -82,11 +91,11 @@ public class ArchiveGUI {
 
                 file[0] = file_open.getSelectedFile();
 
-                label_1.setText(file[0].getName());
+                fileName.setText(file[0].getName());
+
 
                 archive.setEnabled(true);
 
-                progress.setText("Готов!");
             }
         });
 
@@ -96,9 +105,7 @@ public class ArchiveGUI {
 
                 e -> {
 
-                    progressBar.setIndeterminate(true);
-
-                    progress.setText("...");
+                    progress.setText("Статус : compressing ...");
 
                     String path = file[0].getPath();
 
@@ -113,11 +120,7 @@ public class ArchiveGUI {
 
                     zipper.compress(file[0], result);
 
-                    progressBar.setIndeterminate(true);
-
                     zipper.decompress(result, output);
-
-                    progressBar.setIndeterminate(false);
 
                     progress.setText(" Архивация завершена! ");
                 });
@@ -127,7 +130,7 @@ public class ArchiveGUI {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.setPreferredSize(new Dimension(250, 300));
+        frame.setPreferredSize(new Dimension(350, 400));
 
         frame.setResizable(false);
 
