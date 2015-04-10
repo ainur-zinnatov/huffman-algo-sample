@@ -35,7 +35,6 @@ public class ArchiveGUI {
 
         final JLabel fileName = new JLabel();
         fileName.setBounds(15,90,300,20);
-        fileName.setHorizontalTextPosition(AbstractButton.LEFT);
         panel.add(fileName);
 
         final JRadioButton radioHuf = new JRadioButton(".HUF");
